@@ -1,0 +1,17 @@
+# Web
+Flask
+flask-cors
+gunicorn
+
+# Deep Learning
+tensorflow
+numpy
+
+# Traitement d'image
+opencv-python
+Pillow
+scipy
+
+# Traitement audio
+librosa
+sounddevice

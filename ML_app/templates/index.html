@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>MedTrackAI – Accueil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Libre Baskerville', serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #d3cfcf;
+      padding: 20px 30px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+      color: #333;
+    }
+
+    .container {
+      flex:1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 60px 80px;
+      gap: 60px;
+      background-color: #eae7dc;
+      min-height: 70vh;
+    }
+
+    .content {
+      max-width: 550px;
+      flex: 1;
+      position: relative;
+      padding: 20px;
+    }
+
+    .content h2 {
+        font-size: 32px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        line-height: 1.3;
+        margin-bottom: 20px;
+        max-width: 600px;
+        text-align: center;
+      }
+    h2{
+        padding: 20px;
+       
+    }
+    .content p {
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: justify;
+        margin-bottom: 30px;
+        max-width: 600px; /* même que le h2 */
+      }
+      
+
+  
+
+    .button {
+        background-color: #d7b892;
+        color: #2a2a2a;
+        padding: 12px 26px;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 8px;
+        border: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        margin-left: 200px; /* décalage vers la droite */
+        display: inline-block;
+      }
+      
+    .button:hover {
+        background-color: #c49b75;
+        border-color: #a97c50;
+      }
+      
+
+      .image-box {
+        flex: 1;
+        max-width: 700px; /* 🟢 plus grand qu’avant */
+      }
+      
+      .image-box img {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+    footer {
+      background-color: #d3cfcf;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .content {
+        padding: 0;
+        margin-bottom: 30px;
+      }
+
+      .image-box {
+        max-width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MedTrackAI</h1>
+  </header>
+
+  <div class="container">
+    <div class="content">
+      
+      <h2>Reconnaissance faciale et vocale au service des urgences</h2>
+      <p>
+        Notre technologie utilise l'intelligence artificielle pour détecter, en temps réel, les signes visibles de détresse comme la douleur, l’inconscience ou le choc, à partir du visage et de la voix d’un patient.
+      </p>
+      <a class="button" href="/live">🩺 Lancer la détection</a>
+
+    </div>
+
+    <div class="image-box">
+      <img src="{{ url_for('static', filename='img/emer.jpeg') }}" alt="Analyse IA santé">
+    </div>
+  </div>
+
+  <footer>
+    © 2025 MedTrackAI – Powered by NAKS AI for Digital Solutions
+
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>MedTrackAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Libre Baskerville', serif;
+      background-color: #fdfaf3;
+      color: #2a2a2a;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #d7d1cc;
+      padding: 20px 30px;
+      text-align: left;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: bold;
+      color: #2a2a2a;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .video-box {
+      max-width: 800px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      border: 6px solid #d7b892;
+    }
+
+    .video-box img {
+      width: 100%;
+      display: block;
+    }
+
+    .button {
+      margin-top: 30px;
+      background-color: #d7b892;
+      color: #2a2a2a;
+      padding: 12px 24px;
+      font-size: 16px;
+      text-decoration: none;
+      border-radius: 8px;
+      border: none;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #caa87f;
+    }
+
+    footer {
+      background-color: #d7d1cc;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      color: #2a2a2a;
+    }
+
+    /* Banniere d'alerte rouge fixe en haut */
+    #alert-banner {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ff4c4c;
+      color: white;
+      font-weight: bold;
+      padding: 15px;
+      text-align: center;
+      z-index: 9999;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MedTrackAI</h1>
+  </header>
+
+  <!-- Banniere d'alerte rouge -->
+  <div id="alert-banner">
+    ALERTE CRITIQUE : <span id="alert-text"></span>
+  </div>
+
+  <div class="container">
+    <div class="video-box">
+      <img src="{{ url_for('video_feed') }}" alt="Flux vidéo en direct">
+    </div>
+
+    <a class="button" href="/">🏠 Retour à l’accueil</a>
+  </div>
+
+  <footer>
+    © 2025 MedTrackAI – Powered by NAKS AI for Digital Solutions
+  </footer>
+
+  <!-- Son d'alerte -->
+  <audio id="alert-sound" src="{{ url_for('static', filename='alert.mp3') }}" preload="auto"></audio>
+
+  <script>
+    function fetchAlert() {
+      fetch('/alert')
+      .then(response => response.json())
+      .then(data => {
+          const banner = document.getElementById('alert-banner');
+          const alertText = document.getElementById('alert-text');
+          const alertSound = document.getElementById('alert-sound');
+
+          if(data.alert && data.alert.trim() !== "") {
+              alertText.textContent = data.alert;
+              banner.style.display = "block";
+
+              // Jouer le son d'alerte (avec catch pour éviter erreur autoplay)
+              alertSound.play().catch(e => console.log("Erreur lecture son:", e));
+          } else {
+              banner.style.display = "none";
+          }
+      })
+      .catch(err => console.error("Erreur fetch alert:", err));
+    }
+
+    // Vérifier l’alerte toutes les 3 secondes
+    setInterval(fetchAlert, 3000);
+  </script>
+
+</body>
+</html>
